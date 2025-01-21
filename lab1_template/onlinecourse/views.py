@@ -8,7 +8,20 @@ from django.http import Http404
 
 # Create your class based views here.
 
+class CourseListView(View):
+    
+    def get(self, request):
+        context = {}
+        course_list = Course.objects.order_by('-total_enrollment')[:10]
+        context['course_list'] = course_list
+        return render(request, 'onlinecourse/course_list.html', context)
 
+class EnrollView(View):
+    def post(self, request, *args, **kwargs):
+        course = get_object_or_404(Course, pk=course.id)
+        course.total_enrollment +=1
+        course.save()
+        return HttpResponseRedirect(reverse(viewname='onlinecourse:course_details', args=(course.id,)))
 
 # Function based views
 

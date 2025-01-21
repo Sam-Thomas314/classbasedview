@@ -5,6 +5,8 @@ from . import views
 
 app_name = 'onlinecourse'
 urlpatterns = [
+    path(route='', view=views.CourseListView.as_view(), name='popular_course_list'),
+    path(route='course/<int:pk>/enroll/', view=views.EnrollView.as_view(), name='enroll'),
     # Add path here
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)\
